@@ -8,12 +8,12 @@
       <bpmn:lane id="Lane_0c9xdey" name="Mitarbeiter">
         <bpmn:flowNodeRef>TweetAnfrageEingereicht</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>TweetAnfrageUeberarbeiten</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>BoundaryEvent_0ypqto9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>dreitageabgelaufenkomi</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1iir6w0" name="Kommunikationsabteilung">
         <bpmn:flowNodeRef>ExclusiveGateway_1qa6x80</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>TweetAnfragePruefen</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>BoundaryEvent_1aqewro</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>dreitageabgelaufen</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>MitarbeiterKuerzelExtrahieren</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1d0re29" name="Automatisch">
@@ -112,9 +112,9 @@
       <bpmn:incoming>SequenceFlow_0akgqts</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0wkf2cr</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1jhf8t5" sourceRef="BoundaryEvent_1aqewro" targetRef="ExclusiveGateway_0fj9kmh" />
-    <bpmn:sequenceFlow id="SequenceFlow_1g9zj4v" sourceRef="BoundaryEvent_0ypqto9" targetRef="ExclusiveGateway_0fj9kmh" />
-    <bpmn:boundaryEvent id="BoundaryEvent_0ypqto9" name="3 Tage abgelaufen" attachedToRef="TweetAnfrageUeberarbeiten">
+    <bpmn:sequenceFlow id="SequenceFlow_1jhf8t5" sourceRef="dreitageabgelaufen" targetRef="ExclusiveGateway_0fj9kmh" />
+    <bpmn:sequenceFlow id="SequenceFlow_1g9zj4v" sourceRef="dreitageabgelaufenkomi" targetRef="ExclusiveGateway_0fj9kmh" />
+    <bpmn:boundaryEvent id="dreitageabgelaufenkomi" name="3 Tage abgelaufen" attachedToRef="TweetAnfrageUeberarbeiten">
       <bpmn:extensionElements>
         <camunda:executionListener event="end">
           <camunda:script scriptFormat="JavaScript">execution.setVariable("mailMainPart","Dieser konnte nicht veröffentlicht werden, weil Du nicht innert 3 Tagen diesen überarbeitet hast.");</camunda:script>
@@ -122,10 +122,10 @@
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_1g9zj4v</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT50S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:boundaryEvent id="BoundaryEvent_1aqewro" name="3 Tage abgelaufen" attachedToRef="TweetAnfragePruefen">
+    <bpmn:boundaryEvent id="dreitageabgelaufen" name="3 Tage abgelaufen" attachedToRef="TweetAnfragePruefen">
       <bpmn:extensionElements>
         <camunda:executionListener event="end">
           <camunda:script scriptFormat="JavaScript">execution.setVariable("mailMainPart","Dieser konnte nicht veröffentlicht werden, weil er nicht durch die Kommunikationsabteilung innert 3 Tagen  geprüft wurde.");</camunda:script>
@@ -133,7 +133,7 @@
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_1jhf8t5</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT50S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:scriptTask id="MitarbeiterKuerzelExtrahieren" name="Mitarbeiter-Kürzel extrahieren" scriptFormat="JavaScript">
@@ -260,7 +260,7 @@ execution.setVariable("alias",alias);</bpmn:script>
       <bpmndi:BPMNShape id="SendTask_169hbwy_di" bpmnElement="MitarbeiterBenachrichtigen">
         <dc:Bounds x="857" y="311" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BoundaryEvent_0kjrphu_di" bpmnElement="BoundaryEvent_1aqewro">
+      <bpmndi:BPMNShape id="BoundaryEvent_0kjrphu_di" bpmnElement="dreitageabgelaufen">
         <dc:Bounds x="359" y="234" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="305" y="249" width="55" height="27" />
@@ -273,7 +273,7 @@ execution.setVariable("alias",alias);</bpmn:script>
         <di:waypoint x="814" y="386" />
         <di:waypoint x="793" y="364" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BoundaryEvent_0es2uk6_di" bpmnElement="BoundaryEvent_0ypqto9">
+      <bpmndi:BPMNShape id="BoundaryEvent_0es2uk6_di" bpmnElement="dreitageabgelaufenkomi">
         <dc:Bounds x="694" y="40" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="719" y="15" width="55" height="27" />
